@@ -1,56 +1,63 @@
 package jp.ac.shohoku.O.screentransition;
 
-import android.content.Context;
-import android.util.AttributeSet;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.util.Log;
-import android.view.MotionEvent;
-import androidx.annotation.Nullable;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.view.View.OnClickListener;
 
-public class MainView extends View{
-    public final int FIRST = 1;
-    public final int SECOND = 2; //状態を表す定数
-    int state;
+public class MainActivity extends Activity {
 
-    public MainView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        state = FIRST;
-    }
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        Paint p = new Paint();
-
-        if(state == FIRST) { //状態1の場合の描画
-            p.setColor(Color.BLUE);
-            canvas.drawARGB(255, 255, 255, 255);
-            canvas.drawRect(100, 100, 300, 200, p);
-        } else if (state == SECOND){  //状態2の場合の描画
-            p.setColor(Color.RED);
-            canvas.drawARGB(255, 255, 255, 0);
-            canvas.drawRect(100, 100, 300, 200, p);
-        } else {  //それ以外の場合は，Logにエラーを吐き出す
-            Log.d("error", "never come here");
-        }
-    }
+    int count = 1;
 
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        int x = (int) event.getX();
-        int y = (int) event.getY();
-
-        if (x > 100 && x < 300 && y > 100 && y < 200) {
-            if (state == FIRST) {  //状態１だったら状態２へ
-                state = SECOND;
-            } else if (state == SECOND) { //状態2だったら状態1へ
-                state = FIRST;
-            } else {  //それ以外だったらエラーを吐き出す
-                Log.d("error", "never come here");
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_view);
+        // ボタンを押したときにイベントを取得できるようにする
+        Button button1 = (Button) findViewById(R.id.button1);
+        button1.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (count == 1) {
+                    // 変更したいレイアウトを取得する
+                    LinearLayout layout = (LinearLayout) findViewById(R.id.linearlayout1);
+                    // レイアウトのビューをすべて削除する
+                    layout.removeAllViews();
+                    // レイアウトをR.layout.sampleに変更する
+                    getLayoutInflater().inflate(R.layout.view2, layout);
+                    count = 2;
+                } else if (count == 2) {
+                    LinearLayout layout = (LinearLayout) findViewById(R.id.linearlayout2);
+                    layout.removeAllViews();
+                    getLayoutInflater().inflate(R.layout.view1, layout);
+                    count = 1;
+                }
             }
-            invalidate();  //再描画
-            return super.onTouchEvent(event);
-        }
+        });
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+}
