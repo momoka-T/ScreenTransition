@@ -54,3 +54,4 @@ public class MainView extends View{
                return super.onTouchEvent(event);
            }
        }
+}
