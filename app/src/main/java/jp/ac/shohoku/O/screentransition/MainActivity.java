@@ -14,7 +14,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_view);
         //ボタンを押したときにイベントが取得できるようにする
         Button button1 = (Button)findViewById(R. id. button1);
         button1.setOnClickListener(new OnClickListener() {
@@ -26,12 +26,12 @@ public class MainActivity extends Activity {
                     //レイアウトのビューをすべて削除する
                     layout.removeAllViews();
                     //レイアウトをR.layout.sampleに変更する
-                    getLayoutInflater().inflate(R.layout.view2. layout);
+                    getLayoutInflater().inflate(R.layout.view2, layout);
                     count=2;
                 }else if(count == 2){
                     LinearLayout layout = (LinearLayout)findViewById(R.id.linearlayout2);
                     layout.removeAllViews();
-                    getLayoutInflater().inflate(R.layout.view, layout);
+                    getLayoutInflater().inflate(R.layout.view1, layout);
                     count=1;
                 }
             }
