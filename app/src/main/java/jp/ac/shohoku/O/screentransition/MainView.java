@@ -8,13 +8,17 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
 import android.view.MotionEvent;
-import androidx.annotation.Nullable;
 
 public class MainView extends View{
     public final int FIRST = 1;
     public final int SECOND = 2; //状態を表す定数
     int state;
 
+    /**
+     * コンストラクタ
+     * @param context
+     * @param attrs
+     */
     public MainView(Context context, AttributeSet attrs) {
       super(context, attrs);
       state = FIRST;
@@ -50,8 +54,9 @@ public class MainView extends View{
                } else {  //それ以外だったらエラーを吐き出す
                    Log.d("error", "never come here");
                }
+           }
                invalidate();  //再描画
                return super.onTouchEvent(event);
-           }
        }
+
 }
