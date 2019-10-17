@@ -14,6 +14,8 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //第5回課題
+        //setContentView(R.layout.activity_main);
         setContentView(R.layout.activity_view);
         //ボタンを押したときにイベントが取得できるようにする
         Button button1 = (Button)findViewById(R. id. button1);
